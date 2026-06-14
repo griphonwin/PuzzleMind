@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter</value></resheader>
+  
+  <data name="PageTitle"><value>เกี่ยวกับเรา - โปรแกรมช่วยแก้ปัญหา PuzzleMind</value></data>
+  <data name="HeroSubtitle"><value>ผู้ช่วยอัจฉริยะและระบบคำนวณการแก้ปัญหาสำหรับเกมปริศนาต่างๆ</value></data>
+  <data name="SectionFeaturesTitle"><value>แอปพลิเคชันนี้สามารถทำอะไรได้บ้าง?</value></data>
+  <data name="WaterSortMainDesc"><value>เครื่องมือค้นหาคำตอบอัตโนมัติสำหรับเกมปริศนาแยกสีน้ำในหลอดทดลองยอดนิยม</value></data>
+  <data name="WaterSortFeature1"><value>อัลกorิทึมแนะนำการเททีละขั้นตอน</value></data>
+  <data name="WaterSortFeature2"><value>ปรับแต่งจำนวนหลอดและจำนวนสีได้ตามต้องการ</value></data>
+  <data name="WaterSortFeature3"><value>แสดงผลภาพจำลองในแต่ละขั้นตอนอย่างชัดเจน</value></data>
+  <data name="BtnOpenWaterSort"><value>เปิดเกมแยกสีน้ำ</value></data>
+  <data name="MahjongMainDesc"><value>เครื่องมือวิเคราะห์การจัดวางไพ่นกกระจอกจีน ช่วยค้นหาคู่ไพ่และตาเดินที่ดีที่สุด</value></data>
+  <data name="MahjongFeature1"><value>ระบบแก้ไขการจัดวางไพ่แบบแยกชั้น</value></data>
+  <data name="MahjongFeature2"><value>แสดงขั้นตอนการเดินไพ่ที่ดีที่สุดเพื่อชัยชนะ</value></data>
+  <data name="MahjongFeature3"><value>ระบบวิเคราะห์ตำแหน่งที่ไม่มีทางไปต่อบนกระดาน</value></data>
+  <data name="BtnOpenMahjong"><value>เปิดโปรแกรมช่วยไพ่นกกระจอก</value></data>
+  <data name="TechStackTitle"><value>เทคโนโลยีที่ใช้:</value></data>
+  <data name="TechStackDesc"><value>แอปพลิเคชันนี้ทำงานบนแพลตฟอร์มประสิทธิภาพสูง .NET 10 Blazor Server ร่วมกับโหมด InteractiveServer และส่วนประกอบอินเตอร์เฟสจาก Radzen.Blazor</value></data>
+</root>

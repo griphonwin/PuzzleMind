@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter</value></resheader>
+  
+  <data name="PageTitle"><value>Giới thiệu - Bộ giải PuzzleMind</value></data>
+  <data name="HeroSubtitle"><value>Trợ lý thông minh và bộ giải thuật toán tự động cho các trò chơi giải đố.</value></data>
+  <data name="SectionFeaturesTitle"><value>Ứng dụng này có thể làm gì?</value></data>
+  <data name="WaterSortMainDesc"><value>Công cụ tự động tìm giải pháp cho trò chơi sắp xếp chất lỏng màu trong các ống nghiệm.</value></data>
+  <data name="WaterSortFeature1"><value>Thuật toán đổ nước theo từng bước</value></data>
+  <data name="WaterSortFeature2"><value>Tùy chỉnh số lượng ống và màu sắc</value></data>
+  <data name="WaterSortFeature3"><value>Hiển thị hình ảnh trực quan cho mỗi bước</value></data>
+  <data name="BtnOpenWaterSort"><value>Mở Sắp xếp nước</value></data>
+  <data name="MahjongMainDesc"><value>Công cụ phân tích các thế bài Mahjong Solitaire. Giúp tìm các bước đi tối ưu và các cặp bài trùng khớp.</value></data>
+  <data name="MahjongFeature1"><value>Trình chỉnh sửa vị trí quân bài theo lớp</value></data>
+  <data name="MahjongFeature2"><value>Gợi ý các bước đi tối ưu để giành chiến thắng</value></data>
+  <data name="MahjongFeature3"><value>Phân tích các tình huống bế tắc trên bàn cờ</value></data>
+  <data name="BtnOpenMahjong"><value>Mở giải Mahjong</value></data>
+  <data name="TechStackTitle"><value>Công nghệ sử dụng:</value></data>
+  <data name="TechStackDesc"><value>Ứng dụng được xây dựng trên nền tảng .NET 10 Blazor Server hiệu năng cao với chế độ InteractiveServer và các thành phần giao diện Radzen.Blazor.</value></data>
+</root>

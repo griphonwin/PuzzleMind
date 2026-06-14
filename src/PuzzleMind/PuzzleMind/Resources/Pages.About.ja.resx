@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter</value></resheader>
+  
+  <data name="PageTitle"><value>当サイトについて - PuzzleMindソルバー</value></data>
+  <data name="HeroSubtitle"><value>パズルゲームのためのインテリジェントアシスタントおよび自動攻略ソルバー。</value></data>
+  <data name="SectionFeaturesTitle"><value>このアプリでできること</value></data>
+  <data name="WaterSortMainDesc"><value>試験管内の色付き液体を並べ替える人気のパズルの解法を自動的に見つけるユーティリティ。</value></data>
+  <data name="WaterSortFeature1"><value>ステップバイステップの注ぎ方アルゴリズム</value></data>
+  <data name="WaterSortFeature2"><value>試験管の数と色のカスタマイズ</value></data>
+  <data name="WaterSortFeature3"><value>各状態の視覚的な表現</value></data>
+  <data name="BtnOpenWaterSort"><value>水並べ替えを開く</value></data>
+  <data name="MahjongMainDesc"><value>麻雀ソリティアのレイアウトを分析するためのツール群。最適な手順や一致する牌を見つけるのに役立ちます。</value></data>
+  <data name="MahjongFeature1"><value>レイヤー化された牌配置エディタ</value></data>
+  <data name="MahjongFeature2"><value>勝利への最適な手順のハイライト</value></data>
+  <data name="MahjongFeature3"><value>盤上の手詰まり分析</value></data>
+  <data name="BtnOpenMahjong"><value>麻雀ソルバーを開く</value></data>
+  <data name="TechStackTitle"><value>テクノロジースタック:</value></data>
+  <data name="TechStackDesc"><value>このアプリケーションは、InteractiveServerモードと美しいRadzen.Blazor UIコンポーネントを備えた高性能な.NET 10 Blazor Serverプラットフォームをベースに構築されています。</value></data>
+</root>

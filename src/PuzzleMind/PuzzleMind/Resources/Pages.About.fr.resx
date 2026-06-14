@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter</value></resheader>
+  
+  <data name="PageTitle"><value>À propos - Solveur PuzzleMind</value></data>
+  <data name="HeroSubtitle"><value>Assistant intelligent et solveur automatique pour les jeux de réflexion.</value></data>
+  <data name="SectionFeaturesTitle"><value>Que peut faire cette application ?</value></data>
+  <data name="WaterSortMainDesc"><value>Un outil pour trouver automatiquement des solutions au puzzle populaire de tri de liquides colorés dans des tubes.</value></data>
+  <data name="WaterSortFeature1"><value>Algorithme de versement étape par étape</value></data>
+  <data name="WaterSortFeature2"><value>Nombre de tubes et couleurs personnalisables</value></data>
+  <data name="WaterSortFeature3"><value>Représentation visuelle de chaque étape</value></data>
+  <data name="BtnOpenWaterSort"><value>Ouvrir le Tri d'Eau</value></data>
+  <data name="MahjongMainDesc"><value>Outils d'analyse pour le Mahjong Solitaire. Aide à trouver les meilleurs mouvements et les tuiles correspondantes.</value></data>
+  <data name="MahjongFeature1"><value>Éditeur de placement de tuiles par couches</value></data>
+  <data name="MahjongFeature2"><value>Mise en valeur des étapes optimales pour la victoire</value></data>
+  <data name="MahjongFeature3"><value>Analyse des blocages sur le plateau</value></data>
+  <data name="BtnOpenMahjong"><value>Ouvrir le Mahjong</value></data>
+  <data name="TechStackTitle"><value>Technologies utilisées :</value></data>
+  <data name="TechStackDesc"><value>L'application utilise la plateforme performante .NET 10 Blazor Server avec le mode InteractiveServer et les composants Radzen.Blazor.</value></data>
+</root>

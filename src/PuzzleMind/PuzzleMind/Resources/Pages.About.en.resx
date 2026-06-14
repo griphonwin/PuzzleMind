@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter</value></resheader>
+  
+  <data name="PageTitle"><value>About - PuzzleMind Solver</value></data>
+  <data name="HeroSubtitle"><value>Intelligent assistant and automatic walkthrough solver for puzzle games.</value></data>
+  <data name="SectionFeaturesTitle"><value>What can this app do?</value></data>
+  <data name="WaterSortMainDesc"><value>A utility for automatically finding solutions to the popular puzzle of sorting colored liquids in test tubes.</value></data>
+  <data name="WaterSortFeature1"><value>Step-by-step pouring algorithm</value></data>
+  <data name="WaterSortFeature2"><value>Customizable number of tubes and colors</value></data>
+  <data name="WaterSortFeature3"><value>Visual representation of each state</value></data>
+  <data name="BtnOpenWaterSort"><value>Open Water Sort</value></data>
+  <data name="MahjongMainDesc"><value>A set of tools for analyzing Chinese Mahjong solitaire layouts. Helps find optimal moves and matching tiles.</value></data>
+  <data name="MahjongFeature1"><value>Layered tile placement editor</value></data>
+  <data name="MahjongFeature2"><value>Highlighting optimal steps for victory</value></data>
+  <data name="MahjongFeature3"><value>Deadlock analysis on the board</value></data>
+  <data name="BtnOpenMahjong"><value>Open Mahjong Solver</value></data>
+  <data name="TechStackTitle"><value>Technology Stack:</value></data>
+  <data name="TechStackDesc"><value>The application is built using the high-performance .NET 10 Blazor Server platform with InteractiveServer mode and beautiful Radzen.Blazor UI components.</value></data>
+</root>

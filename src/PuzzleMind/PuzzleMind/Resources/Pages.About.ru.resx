@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter</value></resheader>
+  
+  <data name="PageTitle"><value>О приложении - Решатель PuzzleMind</value></data>
+  <data name="HeroSubtitle"><value>Интеллектуальный помощник и автоматический решатель игровых головоломок.</value></data>
+  <data name="SectionFeaturesTitle"><value>Что умеет это приложение?</value></data>
+  <data name="WaterSortMainDesc"><value>Утилита для автоматического поиска решений популярной головоломки с сортировкой цветной жидкости в пробирках.</value></data>
+  <data name="WaterSortFeature1"><value>Пошаговый алгоритм переливания</value></data>
+  <data name="WaterSortFeature2"><value>Настройка количества колб и цветов</value></data>
+  <data name="WaterSortFeature3"><value>Визуальное представление каждого шага</value></data>
+  <data name="BtnOpenWaterSort"><value>Открыть Сортировку</value></data>
+  <data name="MahjongMainDesc"><value>Комплекс инструментов для разбора раскладок пасьянсов китайского Маджонга. Помогает находить доступные пары костей.</value></data>
+  <data name="MahjongFeature1"><value>Послойный редактор размещения плиток</value></data>
+  <data name="MahjongFeature2"><value>Подсветка оптимальных ходов для победы</value></data>
+  <data name="MahjongFeature3"><value>Анализ тупиковых ситуаций на доске</value></data>
+  <data name="BtnOpenMahjong"><value>Открыть Маджонг</value></data>
+  <data name="TechStackTitle"><value>Стек технологий:</value></data>
+  <data name="TechStackDesc"><value>Приложение построено на базе высокопроизводительной платформы .NET 10 Blazor Server, интерактивного режима рендеринга InteractiveServer и UI-компонентов Radzen.Blazor.</value></data>
+</root>

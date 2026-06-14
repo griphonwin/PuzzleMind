@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter</value></resheader>
+  
+  <data name="PageTitle"><value>Über uns - PuzzleMind-Löser</value></data>
+  <data name="HeroSubtitle"><value>Intelligenter Assistent und automatischer Lösungsfinder für Rätselspiele.</value></data>
+  <data name="SectionFeaturesTitle"><value>Was kann diese App?</value></data>
+  <data name="WaterSortMainDesc"><value>Ein Werkzeug zum automatischen Finden von Lösungen für das Sortieren von farbigen Flüssigkeiten in Röhren.</value></data>
+  <data name="WaterSortFeature1"><value>Schritt-für-Schritt-Gießalgorithmus</value></data>
+  <data name="WaterSortFeature2"><value>Anpassbare Anzahl von Röhren und Farben</value></data>
+  <data name="WaterSortFeature3"><value>Visuelle Darstellung jedes Zustands</value></data>
+  <data name="BtnOpenWaterSort"><value>Wassersortierung öffnen</value></data>
+  <data name="MahjongMainDesc"><value>Werkzeuge zur Analyse von Mahjong-Solitaire. Hilft beim Finden optimaler Züge und passender Kacheln.</value></data>
+  <data name="MahjongFeature1"><value>Schichtweiser Kachel-Editor</value></data>
+  <data name="MahjongFeature2"><value>Hervorhebung optimaler Schritte zum Sieg</value></data>
+  <data name="MahjongFeature3"><value>Analyse von Sackgassen auf dem Brett</value></data>
+  <data name="BtnOpenMahjong"><value>Mahjong öffnen</value></data>
+  <data name="TechStackTitle"><value>Technologie-Stack:</value></data>
+  <data name="TechStackDesc"><value>Die Anwendung basiert auf der leistungsstarken .NET 10 Blazor Server-Plattform mit InteractiveServer-Modus und Radzen.Blazor-Komponenten.</value></data>
+</root>
