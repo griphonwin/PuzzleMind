@@ -1,0 +1,208 @@
+﻿@page "/mahjong"
+@using OpenCvSharp
+@using Radzen
+@using Radzen.Blazor
+@using PuzzleMind.Services
+@inject ClipboardService Clipboard
+@inject MahjongAnalyzer Analyzer
+@inject NotificationService NotificationService
+@inject IJSRuntime JS
+
+<RadzenContent Container="main">
+    <RadzenStack Gap="1rem" class="rz-p-4">
+        <RadzenText TextStyle="TextStyle.H4">🀄 Маджонг Помощник</RadzenText>
+
+        <!-- Панель управления -->
+        <RadzenCard Variant="Variant.Outlined">
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="1.5rem" Wrap="FlexWrap.Wrap">
+                
+                <RadzenStack Orientation="Orientation.Horizontal" Gap="0.5rem">
+                    <RadzenButton Text="Вставить скриншот" Icon="content_paste" Click="@HandlePaste"
+                                  Disabled="@IsProcessing" ButtonStyle="ButtonStyle.Primary" />
+                
+                    <RadzenButton Text="Нарезать шаблоны" Icon="grid_view" Click="@HandleTrain"
+                                  Disabled="@(DisplayImageBase64 == null || IsProcessing)"
+                                  ButtonStyle="ButtonStyle.Secondary" Tooltip="Автоматически сохранить плитки в папку templates" />
+                </RadzenStack>
+
+                <!-- Единый блок статуса и прогресса -->
+                <div style="flex-grow: 1; min-width: 300px;">
+                    <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.SpaceBetween">
+                        <RadzenText TextStyle="TextStyle.Subtitle2" class="rz-m-0">
+                            Статус: <b style="color: var(--rz-primary);">@StatusText</b>
+                        </RadzenText>
+                        <RadzenText TextStyle="TextStyle.Caption"
+                                    Style="@(PoolCount >= 5 ? "color: #ff4d4d; font-weight: bold;" : "color: #aaa;")">
+                            @(7 - PoolCount > 0 ? $"Свободно ячеек: {7 - PoolCount}" : "МЕСТ НЕТ")
+                        </RadzenText>
+                    </RadzenStack>
+
+                    <RadzenProgressBar Value="@(IsProcessing ? 100 : PoolCount * 100 / 7)"
+                                       ShowValue="false"
+                                       Mode="@(IsProcessing ? ProgressBarMode.Indeterminate : ProgressBarMode.Determinate)"
+                                       ProgressBarStyle="@(PoolCount >= 6 ? ProgressBarStyle.Danger : ProgressBarStyle.Success)"
+                                       class="rz-mt-1" />
+                </div>
+
+                <RadzenBadge BadgeType="BadgeType.Info" Text="@($"В ПУЛЕ: {PoolCount} / 7")"
+                             Style="font-size: 1.1rem; padding: 12px; border-radius: 8px;" />
+            </RadzenStack>
+
+            <!-- Лог выполнения -->
+            <RadzenTextArea Value="@InternalLog" ReadOnly="true" Rows="3" class="rz-w-100 rz-mt-4"
+                            Style="font-family: monospace; font-size: 0.75rem; background: #1e1e1e; color: #4af626; border: none; border-radius: 4px;" />
+        </RadzenCard>
+
+        <!-- Рабочая область -->
+        <RadzenCard Style="min-height: 600px; background: #2a2a2a; border-radius: 8px; overflow: auto; display: flex; justify-content: center;">
+            @if (DisplayImageBase64 != null)
+            {
+                <div style="position: relative; display: inline-block;">
+                    <img src="data:image/png;base64,@DisplayImageBase64"
+                         style="max-width: 100%; height: auto; display: block; border: 1px solid #444;" />
+                    
+                    @if (IsProcessing)
+                    {
+                        <div style="position: absolute; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.4);
+                            display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                            <RadzenProgressBar Circular="true" Value="100" Mode="ProgressBarMode.Indeterminate" />
+                            <RadzenText TextStyle="TextStyle.H6" Style="color: white; margin-top: 10px;">Обработка OpenCV...</RadzenText>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <RadzenStack AlignItems="AlignItems.Center" JustifyContent="JustifyContent.Center" Style="height: 400px; color: #666;">
+                    <RadzenIcon Icon="screenshot_region" Style="font-size: 80px; opacity: 0.2;" />
+                    <RadzenText TextStyle="TextStyle.Body1">Скопируйте скриншот игры и нажмите кнопку "Вставить"</RadzenText>
+                </RadzenStack>
+            }
+        </RadzenCard>
+    </RadzenStack>
+</RadzenContent>
+
+@code {
+    private bool IsProcessing;
+    private string StatusText = "Ожидание";
+    private string InternalLog = "Система готова.\n";
+    private string? DisplayImageBase64;
+    private int PoolCount;
+    private byte[]? CurrentRawData;
+
+    // Вставить и Распознать
+    private async Task HandlePaste()
+    {
+        IsProcessing = true;
+        StatusText = "Чтение буфера...";
+        InternalLog = "Запуск процесса анализа...\n";
+        StateHasChanged();
+
+        try
+        {
+            // Таймаут для безопасности
+            var dataTask = Clipboard.GetImageAsync();
+            if (await Task.WhenAny(dataTask, Task.Delay(5000)) == dataTask)
+            {
+                CurrentRawData = await dataTask;
+                if (CurrentRawData != null)
+                {
+                    InternalLog += $"Данные получены: {CurrentRawData.Length} байт.\n";
+                    DisplayImageBase64 = Convert.ToBase64String(CurrentRawData);
+                    StatusText = "Поиск плиток...";
+                    StateHasChanged();
+
+                    // Анализ в фоновом потоке
+                    var result = await Task.Run(() =>
+                        Analyzer.Analyze(CurrentRawData, LoadTemplates(), new MahjongGameConfig())
+                    );
+
+                    InternalLog += result.DebugInfo + "\n";
+
+                    if (result.ProcessedImage != null)
+                        DisplayImageBase64 = Convert.ToBase64String(result.ProcessedImage);
+
+                    PoolCount = result.CurrentPoolCount;
+                    InternalLog += $"Анализ завершен. Найдено в пуле: {PoolCount}. К клику: {result.TilesToClick.Count}.\n";
+                    if (result.TilesToClick.Any())
+                    {
+                        StatusText = "🔥 ЕСТЬ ХОД (КРАСНЫЙ)!";
+                    }
+                    else if (PoolCount >= 7)
+                    {
+                        StatusText = "🚫 ПУЛ ПЕРЕПОЛНЕН!";
+                    }
+                    else
+                    {
+                        StatusText = "🔍 Прямых ходов нет. Подсветил пары цветами.";
+                    }
+                }
+                else
+                {
+                    StatusText = "Буфер пуст";
+                    InternalLog += "Ошибка: Изображение не найдено в буфере.\n";
+                }
+            }
+            else
+            {
+                StatusText = "Ошибка таймаута";
+                InternalLog += "Ошибка: Браузер не ответил вовремя.\n";
+            }
+        }
+        catch (Exception ex)
+        {
+            StatusText = "Ошибка";
+            InternalLog += $"КРИТИЧЕСКАЯ ОШИБКА: {ex.Message}\n";
+        }
+        finally
+        {
+            IsProcessing = false;
+            StateHasChanged();
+        }
+    }
+
+    // Автоматическая нарезка шаблонов
+    private async Task HandleTrain()
+    {
+        if (CurrentRawData == null) return;
+    
+        IsProcessing = true;
+        StatusText = "Ищу новые плитки...";
+    
+        try
+        {
+            // Передаем текущие шаблоны, чтобы не нарезать их повторно
+            await Task.Run(() => Analyzer.ExtractTemplates(CurrentRawData, LoadTemplates()));
+        
+            NotificationService.Notify(NotificationSeverity.Success, "Обучение", "Новые плитки добавлены в templates.");
+        }
+        finally
+        {
+            IsProcessing = false;
+            StateHasChanged();
+        }
+    }
+
+    private List<TileTemplate> LoadTemplates()
+    {
+        var list = new List<TileTemplate>();
+        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates");
+        
+        if (Directory.Exists(path))
+        {
+            foreach (var file in Directory.GetFiles(path, "*.png"))
+            {
+                try
+                {
+                    list.Add(new TileTemplate
+                    {
+                        Id = Path.GetFileNameWithoutExtension(file),
+                        Mat = Cv2.ImRead(file)
+                    });
+                }
+                catch { /* Игнорируем битые файлы */ }
+            }
+        }
+        return list;
+    }
+}

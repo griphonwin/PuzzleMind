@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter</value></resheader>
+  
+  <data name="WelcomeTitle"><value>ゲームアシスタントへようこそ！</value></data>
+  <data name="WelcomeSubtitle"><value>完全な攻略アルゴリズムを計算するために、以下からパズルを選択してください。</value></data>
+  <data name="InstructionBtn"><value>説明書</value></data>
+  <data name="AvailableTools"><value>利用可能な解決ツール:</value></data>
+  <data name="WaterSortDesc"><value>試験管内の色付き液体を最小限の手順で単色に並べ替えます。</value></data>
+  <data name="MahjongDesc"><value>複雑な多層3D牌レイアウトを自動的に分析します。</value></data>
+  <data name="DatabaseDesc"><value>利用可能な牌の種類、パターン、カテゴリを閲覧します。</value></data>
+  <data name="StatusReady"><value>準備完了</value></data>
+  <data name="StatusInteractive"><value>インタラクティブ</value></data>
+  <data name="StatusReference"><value>リファレンス</value></data>
+</root>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter</value></resheader>
+  
+  <data name="WelcomeTitle"><value>Welcome to Game Assistant!</value></data>
+  <data name="WelcomeSubtitle"><value>Select a puzzle below to calculate the perfect walkthrough algorithm.</value></data>
+  <data name="InstructionBtn"><value>Instructions</value></data>
+  <data name="AvailableTools"><value>Available Solving Tools:</value></data>
+  <data name="WaterSortDesc"><value>Sort colored liquids in tubes into solid colors with minimal moves.</value></data>
+  <data name="MahjongDesc"><value>Automatically analyze complex multi-layered 3D tile layouts.</value></data>
+  <data name="DatabaseDesc"><value>Browse available tile types, patterns, and categories.</value></data>
+  <data name="StatusReady"><value>Ready</value></data>
+  <data name="StatusInteractive"><value>Interactive</value></data>
+  <data name="StatusReference"><value>Reference</value></data>
+</root>

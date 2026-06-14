@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter</value></resheader>
+  
+  <data name="NumberOfTubes"><value>Количество колб</value></data>
+  <data name="SolveNow"><value>Найти решение</value></data>
+  <data name="ResetColors"><value>Сбросить цвета</value></data>
+  <data name="Animation"><value>Анимация:</value></data>
+  <data name="Step"><value>Шаг:</value></data>
+  <data name="DesignBoard"><value>Редактор колб</value></data>
+  <data name="SolutionPreview"><value>Просмотр решения</value></data>
+  <data name="SolutionSteps"><value>Шаги решения</value></data>
+  <data name="PourFromTo"><value>Перелить из Колбы {0} в Колбу {1}</value></data>
+  <data name="SearchingSolution"><value>Поиск решения алгоритмом DFS...</value></data>
+  <data name="SetupAlert"><value>Настройте цвета пробирок и нажмите «Solve Now».</value></data>
+</root>

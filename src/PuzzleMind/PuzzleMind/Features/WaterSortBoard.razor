@@ -1,0 +1,40 @@
+﻿<RadzenStack Orientation="Orientation.Horizontal" Gap="1.5rem" JustifyContent="JustifyContent.Center" Wrap="FlexWrap.Wrap" Class="rz-p-8">
+    @foreach (var tube in State.Tubes)
+    {
+        <div class="tube-container">
+            <RadzenCard Variant="Variant.Outlined" Class="tube-frame">
+                @foreach (var color in tube.AsEnumerable().Reverse())
+                {
+                    <div class="color-block" style="background-color: @color;"></div>
+                }
+            </RadzenCard>
+            <div class="tube-label">@(State.Tubes.IndexOf(tube) + 1)</div>
+        </div>
+    }
+</RadzenStack>
+
+<style>
+    .tube-frame {
+        width: 70px;
+        height: 220px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 4px !important;
+        border: 3px solid #444 !important;
+        border-radius: 0 0 15px 15px !important;
+        background: rgba(255,255,255,0.05);
+    }
+    .color-block {
+        height: 50px;
+        width: 100%;
+        margin-top: 2px;
+        border-radius: 4px;
+        border: 1px solid rgba(0,0,0,0.1);
+    }
+    .tube-label { text-align: center; margin-top: 10px; font-weight: bold; }
+</style>
+
+@code {
+    [Parameter] public WaterSortState State { get; set; } = new();
+}

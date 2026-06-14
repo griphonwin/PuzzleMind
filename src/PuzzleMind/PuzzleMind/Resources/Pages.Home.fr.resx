@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter</value></resheader>
+  
+  <data name="WelcomeTitle"><value>Bienvenue dans l'Assistant de Jeu !</value></data>
+  <data name="WelcomeSubtitle"><value>Sélectionnez un casse-tête ci-dessous pour calculer l'algorithme de résolution parfait.</value></data>
+  <data name="InstructionBtn"><value>Instructions</value></data>
+  <data name="AvailableTools"><value>Outils de résolution disponibles :</value></data>
+  <data name="WaterSortDesc"><value>Triez les liquides colorés dans les tubes en couleurs uniques avec un minimum de mouvements.</value></data>
+  <data name="MahjongDesc"><value>Analysez automatiquement les dispositions complexes de tuiles 3D multicouches.</value></data>
+  <data name="DatabaseDesc"><value>Parcourez les types de tuiles, les motifs et les catégories disponibles.</value></data>
+  <data name="StatusReady"><value>Prêt</value></data>
+  <data name="StatusInteractive"><value>Interactif</value></data>
+  <data name="StatusReference"><value>Référence</value></data>
+</root>

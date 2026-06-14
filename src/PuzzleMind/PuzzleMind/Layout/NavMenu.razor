@@ -1,0 +1,23 @@
+﻿@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<NavMenu> L
+
+<RadzenPanelMenu Style="width: 100%;">
+
+    <RadzenPanelMenuItem Text="@L["MenuHome"]"
+                         Path=""
+                         Icon="home"
+                         Match="NavLinkMatch.All" />
+
+    <RadzenPanelMenuItem Text="@L["MenuWaterSort"]"
+                         Path="water-sort"
+                         Icon="opacity" />
+
+    <RadzenPanelMenuItem Text="@L["MenuMahjongSolver"]"
+                         Path="mahjong-solver"
+                         Icon="extension" />
+
+    <RadzenPanelMenuItem Text="@L["MenuMahjongDatabase"]"
+                         Path="mahjong"
+                         Icon="grid_view" />
+
+</RadzenPanelMenu>

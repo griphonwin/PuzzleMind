@@ -1,0 +1,83 @@
+﻿@page "/"
+@layout MainLayout
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<Home> L
+@inject NavigationManager NavigationManager
+
+<PageTitle>PuzzleMind - Dashboard</PageTitle>
+
+<RadzenStack Gap="2rem">
+
+    <!-- Приветственный баннер -->
+    <RadzenCard Variant="Variant.Filled" Style="background: linear-gradient(45deg, var(--rz-primary), var(--rz-secondary)); color: white; padding: 2.5rem; border-radius: var(--rz-border-radius-lg);">
+        <RadzenRow AlignItems="AlignItems.Center">
+            <RadzenColumn Size="12" SizeMD="8">
+                <RadzenText TextStyle="TextStyle.H3" TagName="TagName.H1" Style="margin: 0; color: white; font-weight: bold;">
+                    @L["WelcomeTitle"]
+                </RadzenText>
+                <RadzenText TextStyle="TextStyle.Body1" Style="margin-top: 0.5rem; color: rgba(255,255,255,0.85);">
+                    @L["WelcomeSubtitle"]
+                </RadzenText>
+            </RadzenColumn>
+            <RadzenColumn Size="12" SizeMD="4" class="rz-text-align-right rz-text-align-left-xs" Style="margin-top: 1rem;">
+                <RadzenButton Text="@L["InstructionBtn"]" Icon="help_outline" ButtonStyle="ButtonStyle.Light" Variant="Variant.Outlined" Path="about" Style="color: white; border-color: white;" />
+            </RadzenColumn>
+        </RadzenRow>
+    </RadzenCard>
+
+    <!-- Сетка выбора решателей -->
+    <RadzenText TextStyle="TextStyle.H5" TagName="TagName.H2" Style="margin-bottom: -0.5rem; font-weight: bold;">
+        @L["AvailableTools"]
+    </RadzenText>
+
+    <RadzenRow Gap="1.5rem">
+        <!-- Water Sort -->
+        <RadzenColumn Size="12" SizeMD="4">
+            <RadzenCard Variant="Variant.Outlined" class="rz-ripple" Style="cursor: pointer; height: 100%; padding: 1.5rem; transition: transform 0.2s;" @onclick="@(() => NavigationManager.NavigateTo("water-sort"))">
+                <RadzenStack AlignItems="AlignItems.Center" class="rz-text-align-center" Gap="1rem">
+                    <div Style="background: var(--rz-info-lighter); padding: 1rem; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <RadzenIcon Icon="opacity" IconColor="var(--rz-info)" Style="font-size: 3rem; width: 48px; height: 48px;" />
+                    </div>
+                    <RadzenStack Gap="0.25rem">
+                        <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H3" Style="margin: 0; font-weight: bold;">Water Sort Solver</RadzenText>
+                        <RadzenText TextStyle="TextStyle.Body2" Style="color: var(--rz-text-secondary-color);">@L["WaterSortDesc"]</RadzenText>
+                    </RadzenStack>
+                    <RadzenBadge BadgeStyle="BadgeStyle.Info" Text="@L["StatusReady"]" />
+                </RadzenStack>
+            </RadzenCard>
+        </RadzenColumn>
+
+        <!-- Mahjong Solver -->
+        <RadzenColumn Size="12" SizeMD="4">
+            <RadzenCard Variant="Variant.Outlined" class="rz-ripple" Style="cursor: pointer; height: 100%; padding: 1.5rem; transition: transform 0.2s;" @onclick="@(() => NavigationManager.NavigateTo("mahjong-solver"))">
+                <RadzenStack AlignItems="AlignItems.Center" class="rz-text-align-center" Gap="1rem">
+                    <div Style="background: var(--rz-primary-lighter); padding: 1rem; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <RadzenIcon Icon="extension" IconColor="var(--rz-primary)" Style="font-size: 3rem; width: 48px; height: 48px;" />
+                    </div>
+                    <RadzenStack Gap="0.25rem">
+                        <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H3" Style="margin: 0; font-weight: bold;">Mahjong Solver</RadzenText>
+                        <RadzenText TextStyle="TextStyle.Body2" Style="color: var(--rz-text-secondary-color);">@L["MahjongDesc"]</RadzenText>
+                    </RadzenStack>
+                    <RadzenBadge BadgeStyle="BadgeStyle.Primary" Text="@L["StatusInteractive"]" />
+                </RadzenStack>
+            </RadzenCard>
+        </RadzenColumn>
+
+        <!-- База Маджонга -->
+        <RadzenColumn Size="12" SizeMD="4">
+            <RadzenCard Variant="Variant.Outlined" class="rz-ripple" Style="cursor: pointer; height: 100%; padding: 1.5rem; transition: transform 0.2s;" @onclick="@(() => NavigationManager.NavigateTo("mahjong"))">
+                <RadzenStack AlignItems="AlignItems.Center" class="rz-text-align-center" Gap="1rem">
+                    <div Style="background: var(--rz-success-lighter); padding: 1rem; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <RadzenIcon Icon="grid_view" IconColor="var(--rz-success)" Style="font-size: 3rem; width: 48px; height: 48px;" />
+                    </div>
+                    <RadzenStack Gap="0.25rem">
+                        <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H3" Style="margin: 0; font-weight: bold;">@L["StatusReference"]</RadzenText>
+                        <RadzenText TextStyle="TextStyle.Body2" Style="color: var(--rz-text-secondary-color);">@L["DatabaseDesc"]</RadzenText>
+                    </RadzenStack>
+                    <RadzenBadge BadgeStyle="BadgeStyle.Success" Text="@L["StatusReference"]" />
+                </RadzenStack>
+            </RadzenCard>
+        </RadzenColumn>
+    </RadzenRow>
+
+</RadzenStack>

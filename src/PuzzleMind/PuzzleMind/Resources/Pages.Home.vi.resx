@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter</value></resheader>
+  
+  <data name="WelcomeTitle"><value>Chào mừng đến với Trợ Lý Trò Chơi!</value></data>
+  <data name="WelcomeSubtitle"><value>Chọn một trò chơi bên dưới để tính toán thuật toán giải hoàn hảo nhất.</value></data>
+  <data name="InstructionBtn"><value>Hướng dẫn</value></data>
+  <data name="AvailableTools"><value>Các công cụ giải hiện có:</value></data>
+  <data name="WaterSortDesc"><value>Sắp xếp chất lỏng màu trong các ống thành các màu đồng nhất với số bước tối thiểu.</value></data>
+  <data name="MahjongDesc"><value>Tự động phân tích các bố cục xếp gạch 3D nhiều lớp phức tạp.</value></data>
+  <data name="DatabaseDesc"><value>Duyệt qua các loại gạch, hoa văn và danh mục có sẵn.</value></data>
+  <data name="StatusReady"><value>Sẵn sàng</value></data>
+  <data name="StatusInteractive"><value>Tương tác</value></data>
+  <data name="StatusReference"><value>Danh mục</value></data>
+</root>

@@ -1,0 +1,123 @@
+﻿@namespace PuzzleMind.Features
+
+<RadzenCard Class="rz-mb-4">
+    <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="2rem" Wrap="FlexWrap.Wrap">
+        <!-- Количество пробирок (Локализовано) -->
+        <RadzenFormField Text="@L["NumberOfTubes"]">
+            <RadzenNumeric TValue="int" Value="@tubeCount" Min="2" Max="14" Change="@UpdateTubeCount" Disabled="@isSolving" />
+        </RadzenFormField>
+
+        <!-- Кнопки управления (Локализовано) -->
+        <RadzenButton Text="@L["SolveNow"]" Click="@RunSolver" Icon="psychology"
+                      Disabled="@isSolving" ButtonStyle="ButtonStyle.Primary" />
+
+        <RadzenButton Text="@L["ResetColors"]" Click="@ResetAllColors"
+                      ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Disabled="@isSolving" />
+
+        <!-- Панель анимации (Локализовано) -->
+        @if (allStates.Count > 0)
+        {
+            <RadzenCard Variant="Variant.Outlined" Style="padding: 0.5rem 1rem; border: 1px dashed var(--rz-primary); background: var(--rz-neutral-100);">
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="1rem">
+                    <RadzenText TextStyle="TextStyle.Subtitle2" Style="margin:0;">@L["Animation"]</RadzenText>
+
+                    <RadzenButton Icon="play_arrow"
+                                  Click="@PlayAnimation"
+                                  ButtonStyle="ButtonStyle.Success"
+                                  Size="ButtonSize.Small"
+                                  Tooltip="Start"
+                                  Disabled="@(isPlaying)" />
+
+                    <RadzenButton Icon="pause"
+                                  Click="@PauseAnimation"
+                                  ButtonStyle="ButtonStyle.Warning"
+                                  Size="ButtonSize.Small"
+                                  Tooltip="Pause"
+                                  Disabled="@(!isPlaying)" />
+
+                    <RadzenButton Icon="stop"
+                                  Click="@StopAnimation"
+                                  ButtonStyle="ButtonStyle.Danger"
+                                  Size="ButtonSize.Small"
+                                  Tooltip="Stop"
+                                  Disabled="@(isPlaying == false && (currentStepIndex == 0 || currentStepIndex >= allStates.Count - 1))" />
+
+                    <RadzenText TextStyle="TextStyle.Body2" Style="margin:0; font-weight:bold;">
+                        @L["Step"] @currentStepIndex / @(allStates.Count - 1)
+                    </RadzenText>
+                </RadzenStack>
+            </RadzenCard>
+        }
+    </RadzenStack>
+</RadzenCard>
+
+<RadzenRow Gap="2rem">
+    <!-- Левая часть: Владки доски и предпросмотра (Локализовано) -->
+    <RadzenColumn Size="12" SizeLG="8">
+        <RadzenTabs @bind-SelectedIndex="@activeTabIndex" RenderMode="TabRenderMode.Client">
+            <Tabs>
+                <RadzenTabsItem Text="@L["DesignBoard"]">
+                    <TubeEditor State="@gameState" OnChanged="@StateHasChanged" />
+                </RadzenTabsItem>
+                <RadzenTabsItem Text="@L["SolutionPreview"]">
+                    <WaterSortBoard State="@gameState" />
+                </RadzenTabsItem>
+            </Tabs>
+        </RadzenTabs>
+    </RadzenColumn>
+
+    <!-- Правая часть: Лог шагов (Локализовано) -->
+    <RadzenColumn Size="12" SizeLG="4">
+        <RadzenCard Variant="Variant.Filled" Style="max-height: 600px; overflow-y: auto;">
+            <RadzenText TextStyle="TextStyle.H6" Style="margin-bottom: 1rem;">
+                <RadzenIcon Icon="list" Style="vertical-align: middle; margin-right: 0.5rem;" />
+                @L["SolutionSteps"]
+            </RadzenText>
+
+            @if (uiSteps.Any())
+            {
+                <RadzenTimeline Orientation="Orientation.Vertical" LinePosition="LinePosition.Left">
+                    <Items>
+                        @foreach (var step in uiSteps)
+                        {
+                            bool isCurrent = step.Index == currentStepIndex;
+                            <RadzenTimelineItem PointStyle="@(isCurrent ? PointStyle.Success : PointStyle.Info)"
+                                                Icon="@(isCurrent ? "play_circle" : "navigation")"
+                                                Style="cursor: pointer; transition: background 0.2s;"
+                                                class="@(isCurrent ? "rz-background-color-success-lighter" : "")">
+                                <LabelContent>
+                                    <div @onclick="() => JumpToStep(step.Index)" style="width:100%;">
+                                        <RadzenText TextStyle="TextStyle.Caption" class="@(isCurrent ? "rz-color-success rz-text-bold" : "rz-color-text-secondary")">
+                                            @L["Step"] @step.Index
+                                        </RadzenText>
+                                    </div>
+                                </LabelContent>
+                                <ChildContent>
+                                    <div @onclick="() => JumpToStep(step.Index)" style="width:100%; padding: 4px 0;">
+                                        <RadzenText TextStyle="@(isCurrent ? TextStyle.Subtitle2 : TextStyle.Body2)" Style="margin: 0;">
+                                            @step.Description
+                                        </RadzenText>
+                                        <div style="display: inline-block; width: 12px; height: 12px; background-color: @step.Color; border-radius: 2px; margin-top: 4px; border: 1px solid rgba(0,0,0,0.1);"></div>
+                                    </div>
+                                </ChildContent>
+                            </RadzenTimelineItem>
+                        }
+                    </Items>
+                </RadzenTimeline>
+            }
+            else if (isSolving)
+            {
+                <RadzenStack AlignItems="AlignItems.Center" JustifyContent="JustifyContent.Center" Style="padding: 2rem 0;">
+                    <RadzenProgressBarCircular Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Size="ProgressBarCircularSize.Medium" />
+                    <RadzenText TextStyle="TextStyle.Body2">@L["SearchingSolution"]</RadzenText>
+                </RadzenStack>
+            }
+            else
+            {
+                <RadzenAlert AlertStyle="AlertStyle.Info" Variant="Variant.Flat" AllowClose="false">
+                    @L["SetupAlert"]
+                </RadzenAlert>
+            }
+        </RadzenCard>
+    </RadzenColumn>
+</RadzenRow>

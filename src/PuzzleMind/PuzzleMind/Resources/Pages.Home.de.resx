@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter</value></resheader>
+  
+  <data name="WelcomeTitle"><value>Willkommen beim Spiel-Assistenten!</value></data>
+  <data name="WelcomeSubtitle"><value>Wählen Sie unten ein Rätsel aus, um den perfekten Lösungsalgorithmus zu berechnen.</value></data>
+  <data name="InstructionBtn"><value>Anleitung</value></data>
+  <data name="AvailableTools"><value>Verfügbare Lösungswerkzeuge:</value></data>
+  <data name="WaterSortDesc"><value>Sortieren Sie farbige Flüssigkeiten in Röhren mit minimalen Zügen in einheitliche Farben.</value></data>
+  <data name="MahjongDesc"><value>Analysieren Sie komplexe mehrschichtige 3D-Kachel-Layouts automatisch.</value></data>
+  <data name="DatabaseDesc"><value>Durchsuchen Sie verfügbare Kacheltypen, Muster und Kategorien.</value></data>
+  <data name="StatusReady"><value>Bereit</value></data>
+  <data name="StatusInteractive"><value>Interaktiv</value></data>
+  <data name="StatusReference"><value>Referenz</value></data>
+</root>

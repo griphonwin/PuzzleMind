@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://w3.org" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter</value></resheader>
+  
+  <data name="NumberOfTubes"><value>Number of Tubes</value></data>
+  <data name="SolveNow"><value>Solve Now</value></data>
+  <data name="ResetColors"><value>Reset Colors</value></data>
+  <data name="Animation"><value>Animation:</value></data>
+  <data name="Step"><value>Step:</value></data>
+  <data name="DesignBoard"><value>Design Board</value></data>
+  <data name="SolutionPreview"><value>Solution Preview</value></data>
+  <data name="SolutionSteps"><value>Solution Steps</value></data>
+  <data name="PourFromTo"><value>Pour from Tube {0} to Tube {1}</value></data>
+  <data name="SearchingSolution"><value>Searching for solution...</value></data>
+  <data name="SetupAlert"><value>Configure tube colors and click "Solve Now".</value></data>
+</root>

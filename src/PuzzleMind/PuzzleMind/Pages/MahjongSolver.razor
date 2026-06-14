@@ -1,0 +1,128 @@
+﻿@page "/mahjong-solver"
+@inject DialogService DialogService
+
+<RadzenRow Gap="2rem">
+    <!-- Левая колонка с игровой доской -->
+    <RadzenColumn Size="12" SizeMD="8">
+        <RadzenStack Gap="1rem">
+            <RadzenText TextStyle="TextStyle.H4">Редактор Triple Tile</RadzenText>
+            <TileBoard Tiles="BoardTiles"
+                       ActiveTile="activeTile"
+                       OnTileSelected="HandleTileSelected" />
+        </RadzenStack>
+    </RadzenColumn>
+
+    <!-- Правая колонка со свойствами -->
+    <RadzenColumn Size="12" SizeMD="4">
+        <RadzenCard Variant="Variant.Filled">
+            <RadzenText TextStyle="TextStyle.H6" Style="margin-bottom: 1.5rem;">Свойства плитки</RadzenText>
+
+            @if (activeTile != null)
+            {
+                <RadzenStack Gap="1rem" Style="margin-bottom: 1.5rem;">
+                    <RadzenStack Gap="0.25rem">
+                        <RadzenText TextStyle="TextStyle.Caption">Тип (ID картинки)</RadzenText>
+                        <RadzenNumeric TValue="int" @bind-Value="activeTile.Type" Min="1" Max="20" Style="width: 100%;" />
+                    </RadzenStack>
+
+                    <RadzenStack Gap="0.25rem">
+                        <RadzenText TextStyle="TextStyle.Caption">Слой (Z-index)</RadzenText>
+                        <RadzenNumeric TValue="int" @bind-Value="activeTile.Layer" Change="@(() => StateHasChanged())" Style="width: 100%;" />
+                    </RadzenStack>
+
+                    <RadzenStack Gap="0.25rem">
+                        <RadzenText TextStyle="TextStyle.Caption">Позиция X</RadzenText>
+                        <RadzenNumeric TValue="int" @bind-Value="activeTile.X" Step="1" Style="width: 100%;" />
+                    </RadzenStack>
+
+                    <RadzenStack Gap="0.25rem">
+                        <RadzenText TextStyle="TextStyle.Caption">Позиция Y</RadzenText>
+                        <RadzenNumeric TValue="int" @bind-Value="activeTile.Y" Step="1" Style="width: 100%;" />
+                    </RadzenStack>
+
+                    <RadzenButton Text="Удалить" Icon="delete" ButtonStyle="ButtonStyle.Danger"
+                                  Variant="Variant.Flat" Click="DeleteActiveTile" Style="width: 100%;" />
+                </RadzenStack>
+            }
+            else
+            {
+                <RadzenAlert AlertStyle="AlertStyle.Info" Variant="Variant.Flat" AllowClose="false" Style="margin-bottom: 1.5rem;">
+                    Выберите плитку для редактирования
+                </RadzenAlert>
+            }
+
+            <hr style="border: none; border-top: 1px solid var(--rz-neutral-300); margin: 1.5rem 0;" />
+
+            <RadzenStack Gap="0.75rem">
+                <RadzenButton Text="Добавить новую" Icon="add" Click="AddNewTile" ButtonStyle="ButtonStyle.Success" Variant="Variant.Flat" Style="width: 100%;" />
+                <RadzenButton Text="Запустить Solver" Icon="play_arrow" Click="RunSolver" ButtonStyle="ButtonStyle.Primary" Variant="Variant.Flat" Style="width: 100%;" />
+            </RadzenStack>
+        </RadzenCard>
+    </RadzenColumn>
+</RadzenRow>
+
+@code {
+    List<Tile> BoardTiles = new();
+    Tile? activeTile;
+
+    void HandleTileSelected(Tile tile) => activeTile = tile;
+
+    void AddNewTile()
+    {
+        Tile newTile;
+        const int offset = 20;
+
+        if (activeTile != null)
+        {
+            newTile = new Tile(
+                Guid.NewGuid(),
+                activeTile.Type,
+                activeTile.Layer,
+                activeTile.X + offset,
+                activeTile.Y + offset
+            );
+        }
+        else
+        {
+            newTile = new Tile(Guid.NewGuid(), 1, 0, 50, 50);
+        }
+
+        BoardTiles.Add(newTile);
+        activeTile = newTile;
+    }
+
+    void DeleteActiveTile()
+    {
+        if (activeTile != null)
+        {
+            BoardTiles.Remove(activeTile);
+            activeTile = null;
+        }
+    }
+
+    async Task RunSolver()
+    {
+        Console.WriteLine("=== ЗАПУСК РЕШАТЕЛЯ TRIPLE TILE ===");
+        Console.WriteLine($"На доске плиток: {BoardTiles.Count}");
+
+        var solver = new TripleTileSolver();
+        var solution = solver.Solve(new List<Tile>(BoardTiles), new List<Tile>());
+
+        if (solution != null && solution.Any())
+        {
+            Console.WriteLine("✅ РЕШЕНИЕ НАЙДЕНО!");
+            Console.WriteLine("-------------------------");
+            for (int i = 0; i < solution.Count; i++)
+            {
+                var t = solution[i];
+                Console.WriteLine($"Шаг {i + 1}: Взять тип [{t.Type}] (Координаты: X={t.X}, Y={t.Y}, Слой={t.Layer})");
+            }
+            Console.WriteLine("-------------------------");
+            Console.WriteLine("Итого ходов: " + solution.Count);
+        }
+        else
+        {
+            Console.WriteLine("❌ РЕШЕНИЕ НЕ СУЩЕСТВУЕТ для данной конфигурации.");
+        }
+    }
+}

@@ -1,0 +1,143 @@
+﻿@using Microsoft.AspNetCore.Components.Web
+@inject IJSRuntime JSRuntime
+
+@inject TooltipService TooltipService
+
+<div class="board-viewport"
+     @onpointermove="OnPointerMove"
+     @onpointerup="OnPointerUp"
+     style="position: relative; width: 1000px; height: 800px; background: #e0e0e0; touch-action: none; overflow: hidden; border-radius: 8px;">
+
+    @foreach (var tile in Tiles)
+    {
+        var t = tile; // Фиксируем переменную для замыкания
+
+        <div @ref="tileRefs[t.Id]"
+             @onpointerenter="@(args => ShowTooltip(t))"
+             @onpointerleave="@(args => TooltipService.Close())"
+             @onpointerdown="@(e => HandlePointerDown(e, t))"
+             style="position: absolute; width: 80px; height: 80px;
+                    left: @(t.X)px; top: @(t.Y)px; z-index: @t.Layer;
+                    background-color: @GetTileColor(t.Type);
+                    border: @(ActiveTile?.Id == t.Id ? "4px solid #0288d1" : "2px solid #444");
+                    border-radius: 12px;
+                    display: flex; flex-direction: column; align-items: center; justify-content: center;
+                    cursor: grab; user-select: none; touch-action: none; pointer-events: all;">
+
+            <span style="font-size: 36px; font-weight: 900;">@t.Type</span>
+            <div style="font-size: 11px;">L:@t.Layer</div>
+        </div>
+    }
+
+</div>
+
+@code {
+    [Parameter] public List<Tile> Tiles { get; set; } = new();
+
+    // Добавьте этот параметр, чтобы ошибка исчезла:
+    [Parameter] public Tile? ActiveTile { get; set; }
+
+    [Parameter] public EventCallback<Tile> OnTileSelected { get; set; }
+
+    private bool isDragging = false;
+    private double offsetX, offsetY;
+    private Dictionary<Guid, ElementReference> tileRefs = new();
+
+    private async void HandlePointerDown(PointerEventArgs e, Tile t)
+    {
+        TooltipService.Close(); // Закрываем хинт при начале перетаскивания
+        await OnPointerDown(e, t);
+    }
+
+    // Важно: инициализируем ссылки при получении параметров
+    protected override void OnParametersSet()
+    {
+        foreach (var tile in Tiles)
+        {
+            if (!tileRefs.ContainsKey(tile.Id))
+            {
+                tileRefs[tile.Id] = default;
+            }
+        }
+    }
+    private async Task OnPointerDown(PointerEventArgs e, Tile tile)
+    {
+        ActiveTile = tile; // Используем ActiveTile вместо локального SelectedTile
+        isDragging = true;
+
+        offsetX = e.ClientX - tile.X;
+        offsetY = e.ClientY - tile.Y;
+
+        await OnTileSelected.InvokeAsync(tile);
+    }
+
+    private void OnPointerMove(PointerEventArgs e)
+    {
+        if (isDragging && ActiveTile != null)
+        {
+            ActiveTile.X = (int)(e.ClientX - offsetX);
+            ActiveTile.Y = (int)(e.ClientY - offsetY);
+        }
+    }
+
+    private void OnPointerUp(PointerEventArgs e)
+    {
+        isDragging = false;
+    }
+
+    private string GetTileColor(int type)
+    {
+        string[] palette16 = new[] {
+        "#FFFFFF", "#C0C0C0", "#808080", "#000000", // Белый, Серебро, Серый, Черный
+        "#FF0000", "#800000", "#FFFF00", "#808000", // Красный, Бордовый, Желтый, Оливковый
+        "#00FF00", "#008000", "#00FFFF", "#008080", // Лайм, Зеленый, Циан, Teal
+        "#0000FF", "#000080", "#FF00FF", "#800080"  // Синий, Темно-синий, Маджента, Пурпурный
+    };
+
+        // Используем остаток от деления, чтобы типы > 16 тоже имели цвет
+        return palette16[type % 16];
+    }
+
+    // Вспомогательный метод для выбора цвета текста (черный или белый) в зависимости от яркости фона
+    private string GetTextColor(int type)
+        => (type % 16 == 3 || type % 16 == 5 || type % 16 == 13 || type % 16 == 15) ? "white" : "black";
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        // Очищаем старые ссылки, которые больше не существуют на доске
+        var currentIds = Tiles.Select(t => t.Id).ToHashSet();
+        var keysToRemove = tileRefs.Keys.Where(id => !currentIds.Contains(id)).ToList();
+
+        foreach (var key in keysToRemove)
+        {
+            tileRefs.Remove(key);
+        }
+    }
+
+    private void ShowTooltip(Tile tile)
+    {
+        // Безопасная проверка: если ссылка еще не успела создаться (первый рендер), ничего не делаем
+        if (tileRefs.ContainsKey(tile.Id))
+        {
+            var elementRef = tileRefs[tile.Id];
+
+            TooltipService.Open(elementRef, ds =>
+                @<div style="padding: 10px; background: #1a1a1a; color: #eee; border: 2px solid @GetTileColor(tile.Type); border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 6px;">
+        <div style="width: 32px; height: 32px; background: @GetTileColor(tile.Type); color: @GetTextColor(tile.Type);
+                                border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 18px; border: 1px solid rgba(255,255,255,0.3);">
+            @tile.Type
+        </div>
+        <span style="font-weight: bold; font-size: 1.1rem; letter-spacing: 0.5px;">TILE DATA</span>
+    </div>
+    <div style="height: 1px; background: linear-gradient(to right, @GetTileColor(tile.Type), transparent); margin-bottom: 8px;"></div>
+    <div style="font-family: 'Consolas', monospace; font-size: 0.9rem;">
+        <div style="display: flex; justify-content: space-between; gap: 20px;"><span>Layer (Z):</span> <b style="color: #00ff00;">@tile.Layer</b></div>
+        <div style="display: flex; justify-content: space-between;"><span>Pos X:</span> <b style="color: #00dfff;">@tile.X</b></div>
+        <div style="display: flex; justify-content: space-between;"><span>Pos Y:</span> <b style="color: #00dfff;">@tile.Y</b></div>
+    </div>
+</div>
+        , new TooltipOptions { Position = TooltipPosition.Right, Duration = 2500 });
+        }
+    }
+}

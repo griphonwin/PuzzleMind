@@ -1,0 +1,107 @@
+﻿@page "/about"
+@layout MainLayout
+
+<PageTitle>О приложении - Water Sort & Mahjong Solver</PageTitle>
+
+<RadzenStack Gap="2rem" Style="padding: 1rem 0;">
+
+    <!-- Секция Героя (Заголовок) -->
+    <RadzenCard Variant="Variant.Filled" Style="background: var(--rz-primary-dark); color: var(--rz-text-contrast-color); padding: 3rem 2rem; text-align: center; border-radius: var(--rz-border-radius-lg);">
+        <RadzenIcon Icon="info" Style="font-size: 4rem; width: 64px; height: 64px; margin-bottom: 1rem;" />
+        <RadzenText TextStyle="TextStyle.H3" TagName="TagName.H1" Style="margin: 0; color: white;">
+            Water Sort & Mahjong Solver
+        </RadzenText>
+        <RadzenText TextStyle="TextStyle.Subtitle1" Style="margin-top: 0.5rem; color: rgba(255,255,255,0.8);">
+            Интеллектуальный помощник и автоматический решатель игровых головоломок.
+        </RadzenText>
+    </RadzenCard>
+
+    <!-- Основное описание возможностей сайта -->
+    <RadzenText TextStyle="TextStyle.H4" TagName="TagName.H2" class="rz-text-align-center" Style="margin-bottom: 0;">
+        Что умеет это приложение?
+    </RadzenText>
+
+    <RadzenRow Gap="1.5rem">
+        <!-- Карточка 1: Water Sort Solver -->
+        <RadzenColumn Size="12" SizeMD="6">
+            <RadzenCard Variant="Variant.Outlined" Style="height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: 2rem;">
+                <RadzenStack Gap="1rem">
+                    <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="1rem">
+                        <RadzenIcon Icon="opacity" IconColor="var(--rz-info)" Style="font-size: 2.5rem; width: 40px; height: 40px;" />
+                        <RadzenText TextStyle="TextStyle.H5" TagName="TagName.H3" Style="margin: 0;">
+                            Water Sort Solver
+                        </RadzenText>
+                    </RadzenStack>
+                    <RadzenText TextStyle="TextStyle.Body1" Style="color: var(--rz-text-secondary-color);">
+                        Утилита для автоматического поиска решений популярной головоломки с сортировкой цветной жидкости в пробирках.
+                    </RadzenText>
+                    <RadzenStack Gap="0.5rem" Style="margin-top: 0.5rem;">
+                        <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0.5rem">
+                            <RadzenIcon Icon="check_circle" IconColor="var(--rz-success)" Style="font-size: 1.2rem;" />
+                            <RadzenText TextStyle="TextStyle.Body2">Пошаговый алгоритм переливания</RadzenText>
+                        </RadzenStack>
+                        <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0.5rem">
+                            <RadzenIcon Icon="check_circle" IconColor="var(--rz-success)" Style="font-size: 1.2rem;" />
+                            <RadzenText TextStyle="TextStyle.Body2">Настройка количества колб и цветов</RadzenText>
+                        </RadzenStack>
+                        <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0.5rem">
+                            <RadzenIcon Icon="check_circle" IconColor="var(--rz-success)" Style="font-size: 1.2rem;" />
+                            <RadzenText TextStyle="TextStyle.Body2">Визуальное представление каждого шага</RadzenText>
+                        </RadzenStack>
+                    </RadzenStack>
+                </RadzenStack>
+                <RadzenButton Text="Открыть Сортировку" Path="" Icon="play_arrow" ButtonStyle="ButtonStyle.Info" Variant="Variant.Flat" Style="margin-top: 1.5rem; width: 100%;" />
+            </RadzenCard>
+        </RadzenColumn>
+
+        <!-- Карточка 2: Mahjong Solvers -->
+        <RadzenColumn Size="12" SizeMD="6">
+            <RadzenCard Variant="Variant.Outlined" Style="height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: 2rem;">
+                <RadzenStack Gap="1rem">
+                    <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="1rem">
+                        <RadzenIcon Icon="grid_view" IconColor="var(--rz-primary)" Style="font-size: 2.5rem; width: 40px; height: 40px;" />
+                        <RadzenText TextStyle="TextStyle.H5" TagName="TagName.H3" Style="margin: 0;">
+                            Решатель Маджонга
+                        </RadzenText>
+                    </RadzenStack>
+                    <RadzenText TextStyle="TextStyle.Body1" Style="color: var(--rz-text-secondary-color);">
+                        Комплекс инструментов для разбора раскладок и пасьянсов китайского Маджонга. Помогает находить доступные пары костей.
+                    </RadzenText>
+                    <RadzenStack Gap="0.5rem" Style="margin-top: 0.5rem;">
+                        <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0.5rem">
+                            <RadzenIcon Icon="check_circle" IconColor="var(--rz-success)" Style="font-size: 1.2rem;" />
+                            <RadzenText TextStyle="TextStyle.Body2">Сканирование/выбор комбинаций плиток</RadzenText>
+                        </RadzenStack>
+                        <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0.5rem">
+                            <RadzenIcon Icon="check_circle" IconColor="var(--rz-success)" Style="font-size: 1.2rem;" />
+                            <RadzenText TextStyle="TextStyle.Body2">Подсветка оптимальных ходов для победы</RadzenText>
+                        </RadzenStack>
+                        <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0.5rem">
+                            <RadzenIcon Icon="check_circle" IconColor="var(--rz-success)" Style="font-size: 1.2rem;" />
+                            <RadzenText TextStyle="TextStyle.Body2">Анализ тупиковых ситуаций на доске</RadzenText>
+                        </RadzenStack>
+                    </RadzenStack>
+                </RadzenStack>
+                <RadzenButton Text="Открыть Маджонг" Path="mahjong-solver" Icon="extension" ButtonStyle="ButtonStyle.Primary" Variant="Variant.Flat" Style="margin-top: 1.5rem; width: 100%;" />
+            </RadzenCard>
+        </RadzenColumn>
+    </RadzenRow>
+
+    <!-- Секция Технологий -->
+    <RadzenCard Variant="Variant.Text" Style="background: var(--rz-neutral-100); padding: 1.5rem; border-radius: var(--rz-border-radius);">
+        <RadzenRow AlignItems="AlignItems.Center" JustifyContent="JustifyContent.SpaceBetween">
+            <RadzenColumn Size="12" SizeMD="8">
+                <RadzenText TextStyle="TextStyle.Subtitle2" Style="margin: 0;">Стек технологий:</RadzenText>
+                <RadzenText TextStyle="TextStyle.Body2" Style="color: var(--rz-text-secondary-color); margin: 0;">
+                    Приложение построено на базе высокопроизводительной платформы **.NET 10 Blazor Server**, интерактивного режима рендеринга **InteractiveServer** и красивых UI-компонентов **Radzen.Blazor**.
+                </RadzenText>
+            </RadzenColumn>
+            <RadzenColumn Size="12" SizeMD="4" class="rz-text-align-right rz-text-align-left-xs" Style="margin-top: 0.5rem;">
+                <RadzenBadge BadgeStyle="BadgeStyle.Primary" IsPill="true" Text=".NET 10" Style="margin-right: 0.25rem;" />
+                <RadzenBadge BadgeStyle="BadgeStyle.Info" IsPill="true" Text="Blazor" Style="margin-right: 0.25rem;" />
+                <RadzenBadge BadgeStyle="BadgeStyle.Success" IsPill="true" Text="Radzen UI" />
+            </RadzenColumn>
+        </RadzenRow>
+    </RadzenCard>
+
+</RadzenStack>

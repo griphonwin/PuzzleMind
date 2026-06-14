@@ -1,0 +1,39 @@
+﻿@page "/not-found"
+@layout MainLayout
+
+<PageTitle>Страница не найдена</PageTitle>
+
+<RadzenRow JustifyContent="JustifyContent.Center" Style="margin-top: 4rem;">
+    <RadzenColumn Size="12" SizeMD="8" SizeLG="5">
+
+        <!-- Карточка в стиле Radzen -->
+        <RadzenCard Variant="Variant.Filled" Style="padding: 3rem; text-align: center; border-top: 4px solid var(--rz-warning);">
+
+            <!-- Крупная иконка предупреждения -->
+            <RadzenIcon Icon="find_in_page" IconColor="var(--rz-warning)" Style="font-size: 5rem; width: 80px; height: 80px; margin-bottom: 1.5rem;" />
+
+            <!-- Заголовки и текст -->
+            <RadzenText TextStyle="TextStyle.H4" TagName="TagName.H1" class="rz-color-warning" Style="margin-bottom: 0.5rem;">
+                404
+            </RadzenText>
+
+            <RadzenText TextStyle="TextStyle.H5" TagName="TagName.H2" Style="margin-bottom: 1rem;">
+                Страница не найдена
+            </RadzenText>
+
+            <RadzenText TextStyle="TextStyle.Body1" Style="margin-bottom: 2rem; color: var(--rz-text-secondary-color);">
+                К сожалению, запрашиваемый вами контент или страница не существуют.
+            </RadzenText>
+
+            <!-- Кнопка возврата на главную -->
+            <RadzenButton Text="На главную"
+                          Path=""
+                          Icon="arrow_back"
+                          Variant="Variant.Flat"
+                          ButtonStyle="ButtonStyle.Warning"
+                          Style="width: 150px;" />
+
+        </RadzenCard>
+
+    </RadzenColumn>
+</RadzenRow>

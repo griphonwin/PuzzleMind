@@ -1,0 +1,73 @@
+﻿<RadzenStack Orientation="Orientation.Horizontal" Wrap="FlexWrap.Wrap" Gap="1rem" JustifyContent="JustifyContent.Center">
+    @for (int i = 0; i < State.Tubes.Count; i++)
+    {
+        var tubeIndex = i;
+        <div class="editor-tube">
+            <RadzenText Text="@($"Tube {i + 1}")" TextStyle="TextStyle.Caption" TextAlign="TextAlign.Center" />
+            <div class="tube-frame">
+                @for (int slot = State.Capacity - 1; slot >= 0; slot--)
+                {
+                    var slotIndex = slot;
+                    var color = slotIndex < State.Tubes[tubeIndex].Count ? State.Tubes[tubeIndex][slotIndex] : "#eeeeee";
+
+                    <RadzenColorPicker Value="@color"
+                                       Change="@((args) => UpdateSlot(tubeIndex, slotIndex, args))"
+                                       ShowButton="false" Style="width: 100%; height: 40px; margin: 1px 0;"
+                                       ShowHSV="false" ShowRGBA="false" ShowPredefined="true">
+                        <RadzenColorPickerItem Value="#FFA500" /> @*Orange*@
+                        <RadzenColorPickerItem Value="#ADD8E6" /> @*LightBlue*@
+                        <RadzenColorPickerItem Value="#FFC0CB" /> @*Pink*@
+                        <RadzenColorPickerItem Value="#A020F0" /> @*Purple*@
+                        <RadzenColorPickerItem Value="#00FF00" /> @*Green*@
+                        <RadzenColorPickerItem Value="#FFFF00" /> @*Yellow*@
+                        <RadzenColorPickerItem Value="#FFFFFF" /> @*White*@
+                        <RadzenColorPickerItem Value="#AFFF00" /> @*Lime Green*@
+                        <RadzenColorPickerItem Value="#00FFFF" /> @*Cyan*@
+                        <RadzenColorPickerItem Value="#0000FF" /> @*Blue*@
+                        <RadzenColorPickerItem Value="#D3D3D3" /> @*Light Gray*@
+                    </RadzenColorPicker>
+                }
+            </div>
+            <RadzenButton Icon="delete" ButtonStyle="ButtonStyle.Danger" Size="ButtonSize.ExtraSmall"
+                          Click="@(() => ClearTube(tubeIndex))" Class="rz-mt-2" />
+        </div>
+    }
+</RadzenStack>
+
+<style>
+    .editor-tube {
+        width: 80px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .tube-frame {
+        border: 2px solid #666;
+        padding: 4px;
+        border-radius: 0 0 10px 10px;
+        background: #fafafa;
+        width: 60px;
+    }
+</style>
+
+@code {
+    [Parameter, EditorRequired] public WaterSortState State { get; set; }
+    [Parameter] public EventCallback OnChanged { get; set; }
+
+    void UpdateSlot(int tubeIdx, int slotIdx, string color)
+    {
+        var tube = State.Tubes[tubeIdx];
+        while (tube.Count <= slotIdx) tube.Add("#eeeeee"); // Fill gaps
+        tube[slotIdx] = color;
+        // Clean up empty colors at the top
+        while (tube.Count > 0 && tube.Last() == "#eeeeee") tube.RemoveAt(tube.Count - 1);
+        OnChanged.InvokeAsync();
+    }
+
+    void ClearTube(int idx)
+    {
+        State.Tubes[idx].Clear();
+        OnChanged.InvokeAsync();
+    }
+}

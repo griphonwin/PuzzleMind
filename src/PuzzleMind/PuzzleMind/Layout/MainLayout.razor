@@ -1,0 +1,136 @@
+﻿@inherits LayoutComponentBase
+@using System.Globalization
+@using Microsoft.AspNetCore.Localization
+@inject NavigationManager NavigationManager
+
+<RadzenLayout Style="grid-template-areas: 'rz-header rz-header' 'rz-sidebar rz-body'; grid-template-columns: auto 1fr; grid-template-rows: auto 1fr; min-height: 100vh;">
+
+    <!-- Верхняя панель (Header) -->
+    <RadzenHeader Style="box-shadow: var(--rz-box-shadow); height: 64px; display: flex; align-items: center;">
+        <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" JustifyContent="JustifyContent.SpaceBetween" Style="padding: 0 1.5rem; width: 100%;">
+
+            <!-- Левая часть: логотип и кнопка скрытия меню -->
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="1.25rem">
+                <RadzenSidebarToggle Click="@(() => sidebarExpanded = !sidebarExpanded)" Style="margin: 0;" />
+
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0.5rem">
+                    <RadzenIcon Icon="psychology" IconColor="var(--rz-primary-light)" Style="font-size: 2rem;" />
+                    <RadzenText TextStyle="TextStyle.H5" TagName="TagName.H1" Style="margin: 0; font-weight: 700; letter-spacing: 0.5px;">
+                        PuzzleMind
+                    </RadzenText>
+                </RadzenStack>
+            </RadzenStack>
+
+            <!-- Правая часть: Переключатель языков + Ссылка About -->
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="1.5rem">
+
+                <!-- Селектор языков на базе RadzenDropDown -->
+                <RadzenDropDown TValue="string"
+                                Data="@supportedLanguages"
+                                ValueProperty="Code"
+                                Value="@currentLanguageCode"
+                                PopupStyle="width: 200px;"
+                                Change="@OnLanguageChanged">
+                    <Template Context="lang">
+                        <RadzenText Text="@((lang as LanguageModel)?.LongName)" Style="margin-right: 0.5rem;" />
+                    </Template>
+
+                    <ValueTemplate>
+                        @{
+                            var currentLang = supportedLanguages.FirstOrDefault(l => l.Code == currentLanguageCode);
+                            var valueShort = currentLang?.ShortName ?? "EN";
+                            <RadzenText Text="@valueShort" Style="margin-right: 0.5rem;" />
+                        }
+                    </ValueTemplate>
+                </RadzenDropDown>
+
+                <div>
+                    <RadzenLink Text="About"
+                                Path="about"
+                                Icon="help_outline"
+                                Style="font-weight: 600; display: flex; align-items: center; color: var(--rz-header-color);" />
+                </div>
+            </RadzenStack>
+        </RadzenStack>
+    </RadzenHeader>
+
+    <!-- Боковое меню (Sidebar) -->
+    <RadzenSidebar @bind-Expanded="@sidebarExpanded">
+        <div style="padding: 1rem 0;">
+            <NavMenu />
+        </div>
+    </RadzenSidebar>
+
+    <!-- Основной контент (Body) -->
+    <RadzenBody>
+        <div style="padding: 2rem;">
+            @Body
+        </div>
+    </RadzenBody>
+
+</RadzenLayout>
+
+<div id="blazor-error-ui" data-nosnippet>
+    An unhandled error has occurred.
+    <a href="." class="reload">Reload</a>
+    <span class="dismiss">🗙</span>
+</div>
+
+@code {
+    private bool sidebarExpanded = true;
+    private string currentLanguageCode = "en";
+
+    // Список поддерживаемых языков с эмодзи флагами
+    private List<LanguageModel> supportedLanguages = new()
+    {
+        new LanguageModel { Code = "en", ShortName = "EN", LongName = "English" },
+        new LanguageModel { Code = "ru", ShortName = "RU", LongName = "Русский" },
+        new LanguageModel { Code = "fr", ShortName = "FR", LongName = "Français" },
+        new LanguageModel { Code = "de", ShortName = "DE", LongName = "Deutsch" },
+        new LanguageModel { Code = "th", ShortName = "TH", LongName = "ไทย" },
+        new LanguageModel { Code = "vi", ShortName = "VI", LongName = "Tiếng Việt" },
+        new LanguageModel { Code = "ja", ShortName = "JA", LongName = "日本語" }
+    };
+
+    protected override void OnInitialized()
+    {
+        // 1. Получаем полный системный код текущей культуры (например, "ru-RU" или "en-US")
+        var systemCulture = CultureInfo.CurrentCulture.Name.ToLower();
+
+        // 2. Ищем в нашем списке язык, с которого начинается системная культура
+        var matchedLanguage = supportedLanguages
+            .FirstOrDefault(l => systemCulture.StartsWith(l.Code.ToLower()));
+
+        if (matchedLanguage != null)
+        {
+            // Если совпадение найдено (например, "ru-RU" началось с "ru"), выставляем правильный код
+            currentLanguageCode = matchedLanguage.Code;
+        }
+        else
+        {
+            // Подстраховка: если язык совсем экзотический, включаем базовый английский
+            currentLanguageCode = "en";
+        }
+    }
+
+
+    private void OnLanguageChanged(object value)
+    {
+        if (value is string selectedCulture)
+        {
+            // Формируем стандартную строку значения Cookie для локализации в ASP.NET Core
+            var cookieValue = CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(selectedCulture));
+
+            // В Blazor Server (интерактивный режим) мы не можем напрямую писать в Response.Cookies.
+            // Поэтому мы перенаправляем пользователя на специальный встроенный или кастомный URL,
+            // либо используем JSInterop, чтобы прописать Cookie на клиенте.
+
+            // Самый надежный способ "на лету" без JS - использовать редирект через страницу-прослойку,
+            // но для локального использования внутри SignalR можно вызвать JS-скрипт записи куки.
+
+            // Ниже представлен классический подход перезагрузки страницы с передачей новой культуры
+            // (Для работы Cookie потребуется зарегистрировать эндпоинт локализации, либо использовать JS)
+            NavigationManager.NavigateTo($"/Culture/SetCulture?culture={selectedCulture}&redirectUri={NavigationManager.Uri}", forceLoad: true);
+        }
+    }
+}
